@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <input type="button" value="点击" id="input">
+    </div>
+    <div id="haorooms">
+        内容
+    </div>
+    <script>
+    document.getElementById('input').addEventListener('click', function() {
+        fetch('./data.json').then(res => {
+            return res.json()
+        }).then(res => {
+            processAjaxData(res, '/abc');
+            // console.log(res)
+        })
+    });
+
+
+    function processAjaxData(obj, url) {
+        document.getElementById("haorooms").innerHTML = obj.html;
+        document.title = obj.title;
+        window.history.pushState({ "html": obj.html, "pageTitle": obj.title }, "", url);
+    }
+    // 第一次进入页面执行，需要知道第一次进入页面的内容
+    history.replaceState({
+        title: "first",
+        "html": "first-html"
+    }, "", location.href);
+
+
+    window.onpopstate = function(event) {
+        console.log(event.state)
+        if (event.state) {
+            document.getElementById("haorooms").innerHTML = event.state.html;
+            document.title = event.state.title;
+        }
+    };
+    </script>
+</body>
+
+</html>
