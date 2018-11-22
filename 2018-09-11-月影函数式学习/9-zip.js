@@ -23,5 +23,5 @@ function sub(x, y) {
 
 let N = zip({add, sub});
 
-console.log(N(9).add(8).sub(5)); // 17
-// console.log(N(3).sub(5)); // -2
+// console.log(N(9).add(8).sub(5)); // 17
+console.log(N(3).sub(5)); // -2
